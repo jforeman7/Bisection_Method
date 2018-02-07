@@ -1,0 +1,33 @@
+function [c, n, err] = bisection_method(f, a, b, tol, N)
+    
+    % Check for invalid interval, and return 
+    if double(f(a) * f(b)) > 0
+        return;
+    end
+    
+    % Iterator variable.
+    n = 1;
+    
+    % X0.
+    c = (a + b) / 2;
+    err = double(abs(f(c)));
+    
+    % Loop while error is larger than tolerance and while less than N.
+    while err > tol && n < N
+        
+        if f(a) * f(c) < 0
+            b = c;
+        else
+            a = c;
+        end
+        
+        % Calculate next value to test.
+        c = (a + b) / 2;
+        
+        % Calculate error.
+        err = double(abs(f(c)));
+        
+        % Iterate.
+        n = n + 1;
+    end
+end
